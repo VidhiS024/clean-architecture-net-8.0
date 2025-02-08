@@ -1,0 +1,40 @@
+# Problem:
+You are tasked with creating a Web API for managing a library's book inventory using Clean Architecture principles. You need to ensure that the project is well-organized, maintainable, and scalable. However, you face the following challenges:
+
+Separation of Concerns: Your controllers, services, and data access layers are tightly coupled, making it difficult to test or modify individual components.
+Testability: You want to write unit tests for different layers (e.g., application, domain, and infrastructure), but due to tight coupling, mocking dependencies becomes difficult.
+Scalability: As the project grows, the code becomes more complex, and adding new features or updating existing ones becomes risky due to the lack of separation between concerns.
+
+# Solution (using Clean Architecture):
+
+## Step 1: Organize the Project Structure (Clean Architecture)
+You can implement Clean Architecture by structuring your project into multiple layers, each with its own responsibility.
+
+### Core Layer (Domain Layer):
+This contains business logic and domain models. It is independent of any infrastructure, frameworks, or external dependencies. This layer should not know about the web API or database.
+
+### Application Layer (Use Cases / Services):
+Contains application services that interact with the domain models and orchestrate business logic. The application layer defines interfaces for data access and interacts with the domain layer.
+
+### Infrastructure Layer (Data Access and External APIs):
+Contains concrete implementations for data access, like repositories or communication with external services (e.g., SQL Database).
+
+### Web API Layer (Presentation Layer):
+Contains controllers, which act as the entry point for the web API. These controllers should depend only on the application layer, not on infrastructure or domain.
+
+## Step 2: Define Interfaces for Each Layer
+To ensure decoupling, define interfaces in the Core layer and implement them in the Application and Infrastructure layers.
+
+## Step 3: Dependency Injection in Web API Layer
+
+## Step 4: Unit Testing and Mocking Dependencies
+In your unit tests, you can now mock the dependencies because they are not tightly coupled to the Web API layer.
+
+## Step 5: Advantages of Clean Architecture
+Separation of Concerns: Each layer has its responsibility. The Web API Layer doesn't directly deal with business logic or data access, allowing you to modify or replace one layer without impacting others.
+
+Testability: With clear separation, you can easily mock dependencies and write unit tests for controllers, services, or repositories independently.
+
+Scalability: As the application grows, you can add more features without affecting existing functionality. New functionality can be added by simply adding new use cases in the Application Layer or domain models in the Core Layer.
+
+Maintainability: The code is more maintainable because of the decoupled nature of the layers. If you need to change the database or external API, you can do so in the Infrastructure Layer without affecting the rest of the application.
